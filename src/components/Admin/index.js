@@ -53,7 +53,7 @@ class AddStudentBase extends Component {
   };
 
   render() {
-    console.log(this.state);
+    console.log(this.props);
     return (
       <form onSubmit={this.onSubmit}>
         <input

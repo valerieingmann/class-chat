@@ -19,17 +19,22 @@ class AccountPage extends Component {
         {authUser => (
           <div>
             <h1>Welcome, {authUser.username}!</h1>
-            <p>
-              Give this code to your teacher to connect to their room!
-            </p>
-            <p>{authUser.uid}</p>
-            <CopyToClipboard
-              text={authUser.uid}
-              onCopy={() => this.setState({ copied: true })}
-            >
-              <button>Copy to Clipboard</button>
-            </CopyToClipboard>
-            {this.state.copied ? <span>Copied</span> : null}
+            {authUser.roles.ADMIN ? null : (
+              <div>
+                <p>
+                  Give this code to your teacher to connect to their
+                  room!
+                </p>
+                <p>{authUser.uid}</p>
+                <CopyToClipboard
+                  text={authUser.uid}
+                  onCopy={() => this.setState({ copied: true })}
+                >
+                  <button>Copy to Clipboard</button>
+                </CopyToClipboard>
+                {this.state.copied ? <span>Copied</span> : null}
+              </div>
+            )}
           </div>
         )}
       </AuthUserContext.Consumer>
