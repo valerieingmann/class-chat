@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import { SignUpLink } from '../SignUp';
-import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
@@ -21,13 +20,13 @@ const INITIAL_STATE = {
   error: null,
 };
 
-const ERROR_CODE_ACCOUNT_EXISTS =
-  'auth/account-exists-with-different-credential';
+// const ERROR_CODE_ACCOUNT_EXISTS =
+//   'auth/account-exists-with-different-credential';
 
-const ERROR_MSG_ACCOUNT_EXISTS = `
-  An account with an E-Mail address to
-  this social account already exists.
-`;
+// const ERROR_MSG_ACCOUNT_EXISTS = `
+//   An account with an E-Mail address to
+//   this social account already exists.
+// `;
 
 class SignInFormBase extends Component {
   constructor(props) {

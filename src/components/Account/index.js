@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 
 import { AuthUserContext, withAuthorization } from '../Session';
-import { withFirebase } from '../Firebase';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class AccountPage extends Component {
