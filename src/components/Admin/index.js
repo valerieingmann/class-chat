@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { AuthUserContext } from '../Session';
 import { withAuthorization } from '../Session';
-import { UserList, UserItem } from '../Users';
 import * as ROLES from '../../constants/roles';
-import * as ROUTES from '../../constants/routes';
 import { withFirebase } from '../Firebase';
 
-class CreateUserBase extends Component {
+class AddStudentBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,10 +70,10 @@ class CreateUserBase extends Component {
   }
 }
 
-const CreateUserForm = compose(
+const AddStudent = compose(
   withRouter,
   withFirebase,
-)(CreateUserBase);
+)(AddStudentBase);
 
 class AdminPage extends Component {
   constructor() {
@@ -111,16 +109,16 @@ class AdminPage extends Component {
               <button type="submit">Create New Chat Room</button>
             </form> */}
 
-            <CreateUserForm authUser={authUser} />
+            <AddStudent authUser={authUser} />
 
-            <Switch>
+            {/* <Switch>
               <Route
                 exact
                 path={ROUTES.ADMIN_DETAILS}
                 component={UserItem}
               />
               <Route exact path={ROUTES.ADMIN} component={UserList} />
-            </Switch>
+            </Switch> */}
           </div>
         )}
       </AuthUserContext.Consumer>
