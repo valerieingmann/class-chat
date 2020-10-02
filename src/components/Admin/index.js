@@ -12,11 +12,10 @@ class CreateUserBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      email: '',
-      password: '',
+      studentId: '',
       error: null,
       chats: [],
+      chat: {},
     };
   }
 
@@ -29,8 +28,13 @@ class CreateUserBase extends Component {
         uid: key,
       }));
 
+      let myChat = chatsList.filter(
+        chat => chat.ownerId === this.props.authUser.uid,
+      );
+
       this.setState({
         chats: chatsList,
+        chat: myChat[0],
       });
     });
   }
@@ -40,39 +44,29 @@ class CreateUserBase extends Component {
   }
 
   onSubmit = event => {
+    this.props.firebase
+      .user(this.state.studentId)
+      .update({ chatId: this.state.chat.uid });
     event.preventDefault();
   };
 
   onChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ studentId: event.target.value });
   };
 
   render() {
-    console.log(this.state.chats);
+    console.log(this.state);
     return (
       <form onSubmit={this.onSubmit}>
         <input
-          name="username"
-          value={this.state.username}
+          name="studentId"
+          value={this.state.studentId}
           onChange={this.onChange}
           type="text"
-          placeholder="Full Name"
+          placeholder="Student ID"
         />
-        <input
-          name="email"
-          value={this.state.email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="password"
-          value={this.state.password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <button type="submit">Create New User</button>
+
+        <button type="submit">Add Student to My Room</button>
       </form>
     );
   }
@@ -91,16 +85,6 @@ class AdminPage extends Component {
     };
   }
 
-  onChange = event => {
-    this.setState({ title: event.target.value });
-  };
-  createChat = (event, authUser) => {
-    console.log(authUser);
-    this.props.firebase
-      .chats()
-      .push({ title: this.state.title, ownerId: authUser.uid });
-  };
-
   render() {
     return (
       <AuthUserContext.Consumer>
@@ -116,7 +100,7 @@ class AdminPage extends Component {
             >
               Create Chat
             </button> */}
-            <form
+            {/* <form
               onSubmit={event => this.createChat(event, authUser)}
             >
               <input
@@ -125,9 +109,9 @@ class AdminPage extends Component {
                 onChange={this.onChange}
               />
               <button type="submit">Create New Chat Room</button>
-            </form>
+            </form> */}
 
-            <CreateUserForm />
+            <CreateUserForm authUser={authUser} />
 
             <Switch>
               <Route
