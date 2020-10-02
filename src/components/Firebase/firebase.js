@@ -54,10 +54,10 @@ class Firebase {
 
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
-  doSendEmailVerification = () =>
-    this.auth.currentUser.sendEmailVerification({
-      url: 'http://localhost:3000',
-    });
+  // doSendEmailVerification = () =>
+  //   this.auth.currentUser.sendEmailVerification({
+  //     url: 'http://localhost:3000',
+  //   });
 
   doPasswordUpdate = password =>
     this.auth.currentUser.updatePassword(password);
