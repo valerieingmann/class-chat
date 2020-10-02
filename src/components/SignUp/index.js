@@ -36,7 +36,7 @@ class SignUpFormBase extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { ...INITIAL_STATE, uid: '' };
+    this.state = { ...INITIAL_STATE, chatId: '' };
   }
 
   onSubmit = event => {
@@ -50,12 +50,20 @@ class SignUpFormBase extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        this.setState({ uid: authUser.user.uid });
+        if (isAdmin) {
+          let res = this.props.firebase
+            .chats()
+            .push({ ownerId: authUser.user.uid })
+            .getKey();
+          this.setState({ chatId: res });
+        }
+
         // Create a user in your Firebase realtime database
         return this.props.firebase.user(authUser.user.uid).set({
           username,
           email,
           roles,
+          chatId: this.state.chatId,
         });
       })
       .then(() => {
