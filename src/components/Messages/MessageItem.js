@@ -32,19 +32,12 @@ class MessageItem extends Component {
     const { editMode, editText } = this.state;
 
     return (
-      <li>
-        {editMode ? (
-          <input
-            type="text"
-            value={editText}
-            onChange={this.onChangeEditText}
-          />
-        ) : (
-          <span>
-            <strong>{message.username}</strong> {message.text}
-            {/* {message.editedAt && <span>(Edited)</span>} */}
-          </span>
-        )}
+      <li className="msg">
+        <p className="msg-username">
+          <strong>{message.username}</strong>
+          {/* {message.editedAt && <span>(Edited)</span>} */}
+        </p>
+        <span className="msg-text">{message.text}</span>
 
         {authUser.uid === message.userId && (
           // <span>
@@ -58,6 +51,7 @@ class MessageItem extends Component {
           //   )}
 
           <button
+            className="delete-btn"
             type="button"
             onClick={() => onRemoveMessage(message.uid)}
           >

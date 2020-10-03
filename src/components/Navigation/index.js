@@ -8,44 +8,61 @@ import * as ROLES from '../../constants/roles';
 
 const Navigation = () => (
   <AuthUserContext.Consumer>
-    {authUser =>
-      authUser ? (
-        <NavigationAuth authUser={authUser} />
-      ) : (
-        <NavigationNonAuth />
-      )
-    }
+    {authUser => (
+      <div>
+        {authUser ? (
+          <NavigationAuth authUser={authUser} />
+        ) : (
+          <NavigationNonAuth />
+        )}
+      </div>
+    )}
   </AuthUserContext.Consumer>
 );
 
 const NavigationAuth = ({ authUser }) => (
-  <ul>
-    <li>
-      <Link to={ROUTES.HOME}>Home</Link>
-    </li>
-    <li>
-      <Link to={ROUTES.ACCOUNT}>Account</Link>
-    </li>
-    {!!authUser.roles[ROLES.ADMIN] && (
-      <li>
-        <Link to={ROUTES.ADMIN}>Admin</Link>
+  <nav className="navbar">
+    <Link className="link" className="logo" to={ROUTES.LANDING}>
+      CLASSCHAT
+    </Link>
+    <ul className="nav-links">
+      <li className="home">
+        <Link className="link" to={ROUTES.HOME}>
+          Home
+        </Link>
       </li>
-    )}
-    <li>
-      <SignOutButton />
-    </li>
-  </ul>
+      <li>
+        <Link className="link" to={ROUTES.ACCOUNT}>
+          Account
+        </Link>
+      </li>
+      {!!authUser.roles[ROLES.ADMIN] && (
+        <li>
+          <Link className="link" to={ROUTES.ADMIN}>
+            Admin
+          </Link>
+        </li>
+      )}
+      <li>
+        <SignOutButton />
+      </li>
+    </ul>
+  </nav>
 );
 
 const NavigationNonAuth = () => (
-  <ul>
-    <li>
-      <Link to={ROUTES.LANDING}>Landing</Link>
-    </li>
-    <li>
-      <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-    </li>
-  </ul>
+  <nav className="navbar">
+    <Link className="link" className="logo" to={ROUTES.LANDING}>
+      CLASSCHAT
+    </Link>
+    <ul className="nav-links">
+      <li>
+        <Link className="link" to={ROUTES.SIGN_IN}>
+          Sign In
+        </Link>
+      </li>
+    </ul>
+  </nav>
 );
 
 export default Navigation;
