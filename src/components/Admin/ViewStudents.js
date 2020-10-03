@@ -8,27 +8,19 @@ class ViewStudents extends Component {
     };
   }
 
-  listenForUsers() {}
+  listenForUsers = () => {
+    this.props.firebase.users().on('value', snapshot => {
+      let users = Object.values(snapshot.val());
+      this.setState({ usersInRoom: users });
+    });
+  };
 
   componentDidMount() {
-    const chatId = this.props.authUser.chatId;
+    this.listenForUsers();
+  }
 
-    let usersInRoom = [];
-    // this.props.firebase.users().once('value', snapshot => {
-    //   snapshot.forEach(child => {
-    //     usersInRoom.push(child.val());
-    //   });
-    // });
-
-    this.props.firebase.users().on('value', function(snapshot) {
-      console.log(Object.values(snapshot.val()));
-      let users = Object.values(snapshot.val());
-      users.forEach(user => {
-        usersInRoom.push(user);
-      });
-    });
-
-    this.setState({ usersInRoom });
+  componentWillUnmount() {
+    this.props.firebase.users().off();
   }
 
   render() {

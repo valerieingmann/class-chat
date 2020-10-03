@@ -18,28 +18,22 @@ class AddStudentBase extends Component {
   }
 
   componentDidMount() {
-    // this.props.firebase.chats().on('value', snapshot => {
-    //   const chatsObject = snapshot.val();
-    //   if (chatsObject) {
-    //     const chatsList = Object.keys(chatsObject).map(key => ({
-    //       ...chatsObject[key],
-    //       uid: key,
-    //     }));
+    this.props.firebase.chats().on('value', snapshot => {
+      const chatsObject = snapshot.val();
+      if (chatsObject) {
+        const chatsList = Object.keys(chatsObject).map(key => ({
+          ...chatsObject[key],
+          uid: key,
+        }));
 
-    //     let myChat = chatsList.filter(
-    //       chat => chat.ownerId === this.props.authUser.uid,
-    //     );
-    let myChat;
-    this.props.firebase
-      .chats()
-      .orderByChild('chatId')
-      .equalTo(this.props.authUser.chatId)
-      .on('child_added', snapshot => {
-        myChat = snapshot.value();
-      });
+        let myChat = chatsList.filter(
+          chat => chat.ownerId === this.props.authUser.uid,
+        );
 
-    this.setState({
-      chat: myChat,
+        this.setState({
+          chat: myChat[0],
+        });
+      }
     });
   }
 
@@ -60,6 +54,7 @@ class AddStudentBase extends Component {
   };
 
   render() {
+    console.log(this.state);
     return (
       <form onSubmit={this.onSubmit}>
         <input
