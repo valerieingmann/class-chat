@@ -39,7 +39,7 @@ const NavigationAuth = ({ authUser }) => (
       {!!authUser.roles[ROLES.ADMIN] && (
         <li>
           <Link className="link" to={ROUTES.ADMIN}>
-            Admin
+            Manage Students
           </Link>
         </li>
       )}

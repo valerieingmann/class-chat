@@ -5,6 +5,7 @@ import { AuthUserContext } from '../Session';
 import { withAuthorization } from '../Session';
 import * as ROLES from '../../constants/roles';
 import { withFirebase } from '../Firebase';
+import ViewStudents from './ViewStudents';
 
 class AddStudentBase extends Component {
   constructor(props) {
@@ -12,29 +13,33 @@ class AddStudentBase extends Component {
     this.state = {
       studentId: '',
       error: null,
-      chats: [],
       chat: {},
     };
   }
 
   componentDidMount() {
-    this.props.firebase.chats().on('value', snapshot => {
-      const chatsObject = snapshot.val();
-      if (chatsObject) {
-        const chatsList = Object.keys(chatsObject).map(key => ({
-          ...chatsObject[key],
-          uid: key,
-        }));
+    // this.props.firebase.chats().on('value', snapshot => {
+    //   const chatsObject = snapshot.val();
+    //   if (chatsObject) {
+    //     const chatsList = Object.keys(chatsObject).map(key => ({
+    //       ...chatsObject[key],
+    //       uid: key,
+    //     }));
 
-        let myChat = chatsList.filter(
-          chat => chat.ownerId === this.props.authUser.uid,
-        );
+    //     let myChat = chatsList.filter(
+    //       chat => chat.ownerId === this.props.authUser.uid,
+    //     );
+    let myChat;
+    this.props.firebase
+      .chats()
+      .orderByChild('chatId')
+      .equalTo(this.props.authUser.chatId)
+      .on('child_added', snapshot => {
+        myChat = snapshot.value();
+      });
 
-        this.setState({
-          chats: chatsList,
-          chat: myChat[0],
-        });
-      }
+    this.setState({
+      chat: myChat,
     });
   }
 
@@ -89,37 +94,12 @@ class AdminPage extends Component {
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
-            <h1>Admin</h1>
-            <p>
-              The Admin Page is accessible by every signed in admin
-              user.
-            </p>
-            {/* <button
-              onClick={event => this.createChat(event, authUser)}
-            >
-              Create Chat
-            </button> */}
-            {/* <form
-              onSubmit={event => this.createChat(event, authUser)}
-            >
-              <input
-                type="text"
-                value={this.state.title}
-                onChange={this.onChange}
-              />
-              <button type="submit">Create New Chat Room</button>
-            </form> */}
-
+            <h1>Manage Students</h1>
             <AddStudent authUser={authUser} />
-
-            {/* <Switch>
-              <Route
-                exact
-                path={ROUTES.ADMIN_DETAILS}
-                component={UserItem}
-              />
-              <Route exact path={ROUTES.ADMIN} component={UserList} />
-            </Switch> */}
+            <ViewStudents
+              authUser={authUser}
+              firebase={this.props.firebase}
+            />
           </div>
         )}
       </AuthUserContext.Consumer>
