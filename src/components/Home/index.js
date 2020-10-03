@@ -1,17 +1,50 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { compose } from 'recompose';
-
-import { withAuthorization } from '../Session';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { withAuthorization, AuthUserContext } from '../Session';
 import Messages from '../Messages';
 
-const HomePage = () => (
-  <div>
-    <h1>Home Page</h1>
-    <p>The Home Page is accessible by every signed in user.</p>
-
-    <Messages />
-  </div>
-);
+class HomePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      copied: false,
+    };
+  }
+  render() {
+    return (
+      <AuthUserContext.Consumer>
+        {authUser => (
+          <div>
+            <h1>
+              {authUser.classroomName
+                ? authUser.classroomName
+                : 'My Classroom'}
+            </h1>
+            {authUser.chatId ? (
+              <Messages authUser={authUser} />
+            ) : (
+              <div>
+                <p>
+                  Give this code to your teacher to connect to their
+                  room!
+                </p>
+                <p>{authUser.uid}</p>
+                <CopyToClipboard
+                  text={authUser.uid}
+                  onCopy={() => this.setState({ copied: true })}
+                >
+                  <button>Copy to Clipboard</button>
+                </CopyToClipboard>
+                {this.state.copied ? <span>Copied</span> : null}
+              </div>
+            )}
+          </div>
+        )}
+      </AuthUserContext.Consumer>
+    );
+  }
+}
 
 const condition = authUser => !!authUser;
 

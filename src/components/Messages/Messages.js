@@ -22,28 +22,34 @@ class Messages extends Component {
 
   onListenForMessages = () => {
     this.setState({ loading: true });
+    if (this.props.authUser.chatId) {
+      this.props.firebase
+        .messages()
+        .orderByChild('chatId')
+        .equalTo(this.props.authUser.chatId)
+        .limitToLast(100)
+        .on('value', snapshot => {
+          const messageObject = snapshot.val();
 
-    this.props.firebase
-      .messages()
-      .orderByChild('createdAt')
-      .limitToLast(this.state.limit)
-      .on('value', snapshot => {
-        const messageObject = snapshot.val();
+          if (messageObject) {
+            const messageList = Object.keys(messageObject).map(
+              key => ({
+                ...messageObject[key],
+                uid: key,
+              }),
+            );
 
-        if (messageObject) {
-          const messageList = Object.keys(messageObject).map(key => ({
-            ...messageObject[key],
-            uid: key,
-          }));
-
-          this.setState({
-            messages: messageList,
-            loading: false,
-          });
-        } else {
-          this.setState({ messages: null, loading: false });
-        }
-      });
+            this.setState({
+              messages: messageList,
+              loading: false,
+            });
+          } else {
+            this.setState({ messages: null, loading: false });
+          }
+        });
+    } else {
+      this.setState({ messages: null, loading: false });
+    }
   };
 
   componentWillUnmount() {
@@ -58,6 +64,8 @@ class Messages extends Component {
     this.props.firebase.messages().push({
       text: this.state.text,
       userId: authUser.uid,
+      chatId: authUser.chatId,
+      username: authUser.username,
       createdAt: this.props.firebase.serverValue.TIMESTAMP,
     });
 
@@ -80,26 +88,19 @@ class Messages extends Component {
     this.props.firebase.message(uid).remove();
   };
 
-  onNextPage = () => {
-    this.setState(
-      state => ({ limit: state.limit + 5 }),
-      this.onListenForMessages,
-    );
-  };
+  // onNextPage = () => {
+  //   this.setState(
+  //     state => ({ limit: state.limit + 5 }),
+  //     this.onListenForMessages,
+  //   );
+  // };
 
   render() {
     const { text, messages, loading } = this.state;
-
     return (
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
-            {!loading && messages && (
-              <button type="button" onClick={this.onNextPage}>
-                More
-              </button>
-            )}
-
             {loading && <div>Loading ...</div>}
 
             {messages && (

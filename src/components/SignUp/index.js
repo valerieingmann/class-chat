@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { compose } from 'recompose';
-
-import { withFirebase } from '../Firebase';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
-import * as ROLES from '../../constants/roles';
 import TeacherSignUp from './TeacherSignUp';
 
 const SignUpPage = () => (
@@ -13,15 +9,6 @@ const SignUpPage = () => (
     <TeacherSignUp />
   </div>
 );
-
-const INITIAL_STATE = {
-  username: '',
-  email: '',
-  passwordOne: '',
-  passwordTwo: '',
-  isAdmin: false,
-  error: null,
-};
 
 const SignUpLink = () => (
   <p>

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 
 import { AuthUserContext, withAuthorization } from '../Session';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 import { withFirebase } from '../Firebase';
 
 class ViewStudents extends Component {
@@ -66,7 +66,7 @@ class AccountPage extends Component {
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
-            <h1>Welcome, {authUser.username}!</h1>
+            <h1>My Profile</h1>
             {authUser.roles.ADMIN ? (
               <ViewStudents
                 authUser={authUser}
@@ -74,18 +74,8 @@ class AccountPage extends Component {
               />
             ) : (
               <div>
-                <p>
-                  Give this code to your teacher to connect to their
-                  room!
-                </p>
-                <p>{authUser.uid}</p>
-                <CopyToClipboard
-                  text={authUser.uid}
-                  onCopy={() => this.setState({ copied: true })}
-                >
-                  <button>Copy to Clipboard</button>
-                </CopyToClipboard>
-                {this.state.copied ? <span>Copied</span> : null}
+                <p>Username: {authUser.username}</p>
+                <p>Email: {authUser.email}</p>
               </div>
             )}
           </div>

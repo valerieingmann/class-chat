@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import { withFirebase } from '../Firebase';
@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  classroomName: '',
   error: null,
 };
 
@@ -32,7 +33,13 @@ class TeacherSignUpFormBase extends Component {
   }
 
   onSubmit = event => {
-    const { username, email, passwordOne, isAdmin } = this.state;
+    const {
+      username,
+      email,
+      classroomName,
+
+      passwordOne,
+    } = this.state;
     const roles = {};
 
     roles[ROLES.ADMIN] = ROLES.ADMIN;
@@ -42,7 +49,7 @@ class TeacherSignUpFormBase extends Component {
       .then(authUser => {
         let res = this.props.firebase
           .chats()
-          .push({ ownerId: authUser.user.uid })
+          .push({ ownerId: authUser.user.uid, classroomName })
           .getKey();
         this.setState({ chatId: res });
 
@@ -51,6 +58,7 @@ class TeacherSignUpFormBase extends Component {
           username,
           email,
           roles,
+          classroomName,
           chatId: this.state.chatId,
         });
       })
@@ -79,6 +87,7 @@ class TeacherSignUpFormBase extends Component {
       email,
       passwordOne,
       passwordTwo,
+      classroomName,
 
       error,
     } = this.state;
@@ -87,8 +96,9 @@ class TeacherSignUpFormBase extends Component {
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
       email === '' ||
-      username === '';
-    console.log(this.state);
+      username === '' ||
+      classroomName === '';
+
     return (
       <>
         <h1>Create a Teacher Account</h1>
@@ -120,6 +130,13 @@ class TeacherSignUpFormBase extends Component {
             onChange={this.onChange}
             type="password"
             placeholder="Confirm Password"
+          />
+          <input
+            name="classroomName"
+            value={classroomName}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Classroom Name"
           />
 
           <button disabled={isInvalid} type="submit">

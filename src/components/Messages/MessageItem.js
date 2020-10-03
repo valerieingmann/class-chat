@@ -41,31 +41,28 @@ class MessageItem extends Component {
           />
         ) : (
           <span>
-            <strong>{message.userId}</strong> {message.text}
-            {message.editedAt && <span>(Edited)</span>}
+            <strong>{message.username}</strong> {message.text}
+            {/* {message.editedAt && <span>(Edited)</span>} */}
           </span>
         )}
 
         {authUser.uid === message.userId && (
-          <span>
-            {editMode ? (
-              <span>
-                <button onClick={this.onSaveEditText}>Save</button>
-                <button onClick={this.onToggleEditMode}>Reset</button>
-              </span>
-            ) : (
-              <button onClick={this.onToggleEditMode}>Edit</button>
-            )}
+          // <span>
+          //   {editMode ? (
+          //     <span>
+          //       <button onClick={this.onSaveEditText}>Save</button>
+          //       <button onClick={this.onToggleEditMode}>Reset</button>
+          //     </span>
+          //   ) : (
+          //     <button onClick={this.onToggleEditMode}>Edit</button>
+          //   )}
 
-            {!editMode && (
-              <button
-                type="button"
-                onClick={() => onRemoveMessage(message.uid)}
-              >
-                Delete
-              </button>
-            )}
-          </span>
+          <button
+            type="button"
+            onClick={() => onRemoveMessage(message.uid)}
+          >
+            Delete
+          </button>
         )}
       </li>
     );
