@@ -100,7 +100,7 @@ class TeacherSignUpFormBase extends Component {
       classroomName === '';
 
     return (
-      <>
+      <div className="box">
         <h1>Create a Teacher Account</h1>
         <form onSubmit={this.onSubmit}>
           <input
@@ -145,7 +145,7 @@ class TeacherSignUpFormBase extends Component {
 
           {error && <p>{error.message}</p>}
         </form>
-      </>
+      </div>
     );
   }
 }

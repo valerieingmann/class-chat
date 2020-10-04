@@ -10,12 +10,16 @@ const Landing = () => (
 );
 
 const LandingAuth = () => {
-  return <Link to={ROUTES.HOME}>My Classroom</Link>;
+  return (
+    <div className="box">
+      <Link to={ROUTES.HOME}>My Classroom</Link>
+    </div>
+  );
 };
 
 const LandingNonAuth = () => {
   return (
-    <div>
+    <div className="box">
       <h1>Welcome to ClassroomChat!</h1>
       <p>Description of the website and how to use it.</p>
       <p>I am a...</p>

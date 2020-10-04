@@ -78,7 +78,7 @@ class StudentSignUpFormBase extends Component {
       username === '';
 
     return (
-      <>
+      <div className="box">
         <h1>Create a Student Account</h1>
         <form onSubmit={this.onSubmit}>
           <input
@@ -116,7 +116,7 @@ class StudentSignUpFormBase extends Component {
 
           {error && <p>{error.message}</p>}
         </form>
-      </>
+      </div>
     );
   }
 }

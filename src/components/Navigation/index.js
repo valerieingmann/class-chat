@@ -22,7 +22,7 @@ const Navigation = () => (
 
 const NavigationAuth = ({ authUser }) => (
   <nav className="navbar">
-    <Link className="link" className="logo" to={ROUTES.LANDING}>
+    <Link className="link" id="logo" to={ROUTES.LANDING}>
       CLASSCHAT
     </Link>
     <ul className="nav-links">
@@ -52,7 +52,7 @@ const NavigationAuth = ({ authUser }) => (
 
 const NavigationNonAuth = () => (
   <nav className="navbar">
-    <Link className="link" className="logo" to={ROUTES.LANDING}>
+    <Link className="link" id="logo" to={ROUTES.LANDING}>
       CLASSCHAT
     </Link>
     <ul className="nav-links">

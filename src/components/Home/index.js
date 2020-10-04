@@ -15,7 +15,7 @@ class HomePage extends Component {
     return (
       <AuthUserContext.Consumer>
         {authUser => (
-          <div>
+          <div className="box">
             <h1>
               {authUser.classroomName
                 ? authUser.classroomName
