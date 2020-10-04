@@ -5,14 +5,22 @@ import { AuthUserContext } from '../Session';
 
 const Landing = () => (
   <AuthUserContext.Consumer>
-    {authUser => (authUser ? <LandingAuth /> : <LandingNonAuth />)}
+    {authUser =>
+      authUser ? (
+        <LandingAuth authUser={authUser} />
+      ) : (
+        <LandingNonAuth />
+      )
+    }
   </AuthUserContext.Consumer>
 );
 
-const LandingAuth = () => {
+const LandingAuth = ({ authUser }) => {
   return (
     <div className="box">
-      <Link to={ROUTES.HOME}>My Classroom</Link>
+      <Link to={ROUTES.HOME}>
+        {authUser.classroomName || 'My Classroom'}
+      </Link>
     </div>
   );
 };

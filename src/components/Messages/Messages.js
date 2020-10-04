@@ -114,7 +114,7 @@ class Messages extends Component {
                 value={text}
                 onChange={this.onChangeText}
               />
-              <button type="submit">Send</button>
+              <button type="submit">Send Message</button>
             </form>
           </div>
         )}

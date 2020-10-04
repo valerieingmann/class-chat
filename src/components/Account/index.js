@@ -18,7 +18,7 @@ class AccountPage extends Component {
     return (
       <AuthUserContext.Consumer>
         {authUser => (
-          <div>
+          <div className="box">
             <h1>My Profile</h1>
 
             <div>

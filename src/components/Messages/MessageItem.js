@@ -2,11 +2,16 @@ import React from 'react';
 
 const MessageItem = props => {
   const { authUser, message, onRemoveMessage } = props;
+  const time = new Date(message.createdAt).toLocaleString([], {
+    hour: 'numeric',
+    minute: 'numeric',
+  });
 
   return (
-    <li className="msg">
+    <div className="msg">
       <p className="msg-username">
         <strong>{message.username}</strong>
+        <small>{time}</small>
       </p>
       <span className="msg-text">{message.text}</span>
       {authUser.uid === message.userId && (
@@ -18,7 +23,7 @@ const MessageItem = props => {
           Delete
         </button>
       )}
-    </li>
+    </div>
   );
 };
 
