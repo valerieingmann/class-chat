@@ -11,7 +11,7 @@ const MessageItem = props => {
     <div className="msg">
       <p className="msg-username">
         <strong>{message.username}</strong>
-        <small>{time}</small>
+        <span className="time">{time}</span>
       </p>
       <span className="msg-text">{message.text}</span>
       {authUser.uid === message.userId && (
