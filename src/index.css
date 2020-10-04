@@ -108,6 +108,7 @@ h1 {
 
 .link-small:hover {
   color: grey;
+  cursor: pointer;
 }
 
 .form input {
@@ -121,6 +122,10 @@ h1 {
 }
 
 .form-center {
+  text-align: center;
+}
+
+.center {
   text-align: center;
 }
 

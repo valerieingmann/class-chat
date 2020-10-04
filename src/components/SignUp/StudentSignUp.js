@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import { withFirebase } from '../Firebase';
@@ -62,6 +62,10 @@ class StudentSignUpFormBase extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  goBack = () => {
+    this.props.history.goBack();
+  };
+
   render() {
     const {
       username,
@@ -80,7 +84,7 @@ class StudentSignUpFormBase extends Component {
     return (
       <div className="box">
         <h1>Create a Student Account</h1>
-        <form className="form form-center" onSubmit={this.onSubmit}>
+        <form className="form center" onSubmit={this.onSubmit}>
           <input
             name="username"
             value={username}
@@ -116,6 +120,10 @@ class StudentSignUpFormBase extends Component {
 
           {error && <p>{error.message}</p>}
         </form>
+        <p onClick={this.goBack} className="link-small center">
+          Go Back
+        </p>
+        {/* <Link className="link-small">Go Back</Link> */}
       </div>
     );
   }
