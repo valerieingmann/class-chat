@@ -43,7 +43,8 @@ class ViewStudents extends Component {
       myStudents = this.state.users.filter(user => {
         return (
           user.email !== this.props.authUser.email &&
-          user.chatId === this.props.authUser.chatId
+          user.chatId === this.props.authUser.chatId &&
+          user.email
         );
       });
     }
@@ -57,6 +58,7 @@ class ViewStudents extends Component {
               <p>
                 <strong>{student.username}</strong>
                 <button
+                  className="delete-btn"
                   onClick={event =>
                     this.removeStudent(student.uid, event)
                   }

@@ -9,6 +9,7 @@ class AddStudentBase extends Component {
     this.state = {
       studentId: '',
       error: null,
+      added: false,
       chat: {},
     };
   }
@@ -38,10 +39,19 @@ class AddStudentBase extends Component {
   }
 
   onSubmit = event => {
-    this.props.firebase.user(this.state.studentId).update({
-      chatId: this.state.chat.uid,
+    const { chat, studentId } = this.state;
+    this.props.firebase.user(studentId).update({
+      chatId: chat.uid,
       classroomName: this.props.authUser.classroomName,
     });
+    this.props.firebase.user(studentId).once('value', snapshot => {
+      if (!snapshot.val().email) {
+        this.setState({
+          error: { message: 'Sorry, that is not a valid user id.' },
+        });
+      }
+    });
+
     this.setState({ studentId: '' });
     event.preventDefault();
   };
@@ -64,7 +74,7 @@ class AddStudentBase extends Component {
 
           <button type="submit">Add Student to My Room</button>
         </form>
-        {this.state.error && this.state.error.message}
+        <p>{this.state.error && this.state.error.message}</p>
       </>
     );
   }
