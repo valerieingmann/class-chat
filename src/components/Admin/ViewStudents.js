@@ -50,7 +50,7 @@ class ViewStudents extends Component {
     }
 
     return (
-      <div>
+      <div className="students">
         <h3>My Students</h3>
         {myStudents.map(student => {
           return (

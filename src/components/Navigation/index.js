@@ -22,7 +22,7 @@ const Navigation = () => (
 
 const NavigationAuth = ({ authUser }) => (
   <nav className="navbar">
-    <Link className="link" id="logo" to={ROUTES.LANDING}>
+    <Link className="link" id="logo" to={ROUTES.HOME}>
       CLASSCHAT
     </Link>
     <ul className="nav-links">

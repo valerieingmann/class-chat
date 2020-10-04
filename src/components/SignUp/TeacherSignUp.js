@@ -102,7 +102,7 @@ class TeacherSignUpFormBase extends Component {
     return (
       <div className="box">
         <h1>Create a Teacher Account</h1>
-        <form onSubmit={this.onSubmit}>
+        <form className="form form-center" onSubmit={this.onSubmit}>
           <input
             name="username"
             value={username}

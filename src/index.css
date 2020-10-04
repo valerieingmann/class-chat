@@ -75,10 +75,12 @@ h1 {
 
 .msg {
   list-style: none;
+  font-size: 20px;
 }
 
 #msg-box {
   padding-bottom: 20px;
+  padding-left: 10px;
 }
 .msg-username {
   margin-bottom: 10px;
@@ -91,11 +93,56 @@ h1 {
   color: grey;
 }
 
-.msg-text {
+.landing-box {
+  text-align: center;
+}
+
+.link-small {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 30px;
+  text-decoration: none;
+  color: black;
+  font-family: 'Amatic SC';
+}
+
+.link-small:hover {
+  color: grey;
+}
+
+.form input {
+  padding: 10px;
+  margin: 5px;
+}
+
+.form button {
+  padding: 10px;
+  margin: 5px;
+}
+
+.form-center {
+  text-align: center;
+}
+
+.code {
+  text-align: center;
+}
+
+.code button {
+  padding: 10px;
+}
+
+.students {
+  margin: 5px;
+}
+
+.students button {
+  padding: 5px;
 }
 
 .delete-btn {
   margin-left: 10px;
+  padding: 5px;
 }
 
 */ code {

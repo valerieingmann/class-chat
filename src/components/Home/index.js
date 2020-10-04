@@ -24,7 +24,7 @@ class HomePage extends Component {
             {authUser.chatId ? (
               <Messages authUser={authUser} />
             ) : (
-              <div>
+              <div className="code">
                 <p>
                   Give this code to your teacher to connect to their
                   room!

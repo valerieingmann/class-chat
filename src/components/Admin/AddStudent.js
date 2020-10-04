@@ -63,7 +63,7 @@ class AddStudentBase extends Component {
   render() {
     return (
       <>
-        <form onSubmit={this.onSubmit}>
+        <form className="form" onSubmit={this.onSubmit}>
           <input
             name="studentId"
             value={this.state.studentId}

@@ -105,6 +105,7 @@ class Messages extends Component {
             {!messages && <div>There are no messages ...</div>}
 
             <form
+              className="form"
               onSubmit={event =>
                 this.onCreateMessage(event, authUser)
               }

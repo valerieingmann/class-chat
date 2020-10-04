@@ -18,9 +18,13 @@ const Landing = () => (
 const LandingAuth = ({ authUser }) => {
   return (
     <div className="box">
-      <Link to={ROUTES.HOME}>
-        {authUser.classroomName || 'My Classroom'}
-      </Link>
+      <div className="landing-box">
+        <Link className="link-small" to={ROUTES.HOME}>
+          {authUser.classroomName
+            ? `Go to ${authUser.classroomName}`
+            : 'Go To My Classroom'}
+        </Link>
+      </div>
     </div>
   );
 };
@@ -28,11 +32,17 @@ const LandingAuth = ({ authUser }) => {
 const LandingNonAuth = () => {
   return (
     <div className="box">
-      <h1>Welcome to ClassroomChat!</h1>
-      <p>Description of the website and how to use it.</p>
-      <p>I am a...</p>
-      <Link to={ROUTES.SIGN_UP_STUDENT}>STUDENT</Link>
-      <Link to={ROUTES.SIGN_UP_TEACHER}>TEACHER</Link>
+      <div className="landing-box">
+        <h1>Welcome to ClassroomChat!</h1>
+
+        <p>I am a...</p>
+        <Link className="link-small" to={ROUTES.SIGN_UP_STUDENT}>
+          STUDENT
+        </Link>
+        <Link className="link-small" to={ROUTES.SIGN_UP_TEACHER}>
+          TEACHER
+        </Link>
+      </div>
     </div>
   );
 };
