@@ -40,7 +40,9 @@ class ViewStudents extends Component {
         {myStudents.map(student => {
           return (
             <div key={student.email}>
-              <p>{student.username}</p>
+              <p>
+                <strong>{student.username}</strong>
+              </p>
               <p>{student.email}</p>
             </div>
           );

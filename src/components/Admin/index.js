@@ -1,80 +1,12 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+
 import { compose } from 'recompose';
 import { AuthUserContext } from '../Session';
 import { withAuthorization } from '../Session';
 import * as ROLES from '../../constants/roles';
 import { withFirebase } from '../Firebase';
 import ViewStudents from './ViewStudents';
-
-class AddStudentBase extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      studentId: '',
-      error: null,
-      chat: {},
-    };
-  }
-
-  componentDidMount() {
-    this.props.firebase.chats().on('value', snapshot => {
-      const chatsObject = snapshot.val();
-      if (chatsObject) {
-        const chatsList = Object.keys(chatsObject).map(key => ({
-          ...chatsObject[key],
-          uid: key,
-        }));
-
-        let myChat = chatsList.filter(
-          chat => chat.ownerId === this.props.authUser.uid,
-        );
-
-        this.setState({
-          chat: myChat[0],
-        });
-      }
-    });
-  }
-
-  componentWillUnmount() {
-    this.props.firebase.chats().off();
-  }
-
-  onSubmit = event => {
-    this.props.firebase.user(this.state.studentId).update({
-      chatId: this.state.chat.uid,
-      classroomName: this.props.authUser.classroomName,
-    });
-    event.preventDefault();
-  };
-
-  onChange = event => {
-    this.setState({ studentId: event.target.value });
-  };
-
-  render() {
-    console.log(this.state);
-    return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="studentId"
-          value={this.state.studentId}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Student ID"
-        />
-
-        <button type="submit">Add Student to My Room</button>
-      </form>
-    );
-  }
-}
-
-const AddStudent = compose(
-  withRouter,
-  withFirebase,
-)(AddStudentBase);
+import AddStudent from './AddStudent';
 
 class AdminPage extends Component {
   constructor() {
@@ -88,7 +20,7 @@ class AdminPage extends Component {
     return (
       <AuthUserContext.Consumer>
         {authUser => (
-          <div>
+          <div className="box">
             <h1>Manage Students</h1>
             <AddStudent authUser={authUser} />
             <ViewStudents
