@@ -31,4 +31,4 @@ yarn-error.log*
 .firebase
 .firebaserc
 
-/src/components/Firebase/config.js
+/src/components/Firebase/secrets.js
