@@ -1,6 +1,8 @@
 # ClassChat
 
-ClassChat provides a simple discussion room for a teacher and their students. Developed with React and Firebase. This project was created in a couple days and was my first attempt at working with Firebase. I used this [tutorial](https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/) as a boilerplate. 
+ClassChat provides a simple discussion room for a teacher and their students. Developed with React and Firebase. Created in a couple days and my first attempt at working with Firebase! I used this [tutorial](https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/) as a boilerplate. 
+
+![screenshots](https://github.com/valerieingmann/class-chat/blob/master/screenshot.png)
 
 ## Installation
 
@@ -32,5 +34,7 @@ export default config
 ```
 
 ```npm start```
+
+
 
 
