@@ -1,16 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-
-const config = {
-  apiKey: 'AIzaSyCgsJBAUiXFqi2NUAtJopNOxpxpsPD3FxU',
-  authDomain: 'chat3-c1354.firebaseapp.com',
-  databaseURL: 'https://chat3-c1354.firebaseio.com',
-  projectId: 'chat3-c1354',
-  storageBucket: 'chat3-c1354.appspot.com',
-  messagingSenderId: '463717831647',
-  appId: '1:463717831647:web:da559b8a39b161eaa16a6a',
-};
+import config from './config';
 
 class Firebase {
   constructor() {
@@ -53,11 +44,6 @@ class Firebase {
   doSignOut = () => this.auth.signOut();
 
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
-
-  // doSendEmailVerification = () =>
-  //   this.auth.currentUser.sendEmailVerification({
-  //     url: 'http://localhost:3000',
-  //   });
 
   doPasswordUpdate = password =>
     this.auth.currentUser.updatePassword(password);
